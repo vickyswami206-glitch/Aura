@@ -1,52 +1,42 @@
-name: Build Android APK
-
-on:
-  push:
-    branches:
-      - main
+name: CI Android Build
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
+      # Install pnpm via the pnpm action
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      # Setup Node (with pnpm cache)
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-           node-version: 18
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
+      # Install dependencies
+      - name: Install deps with pnpm
         run: pnpm install
-
-      - name: Build web
+        
+      # Build web (Tailwind + Vite)
+      - name: Build web assets
         run: pnpm run build
 
-      # ✅ IMPORTANT: install BOTH
-      - name: Install Capacitor
-        run: |
-          npm install @capacitor/core
-          npm install @capacitor/cli
-          npm install @capacitor/android
-
-      - name: Build web app
-        run: npm run build
-
-      # ✅ INIT (force fix)
-      - name: Ensure Capacitor config
-        run: npx cap init Aura com.vickyswami.aura --web-dir=dist || true
-
+      # Capacitor Android steps
       - name: Add Android platform
         run: npx cap add android
-
       - name: Sync Capacitor
         run: npx cap sync android
-
       - name: Build APK
         run: |
           cd android
