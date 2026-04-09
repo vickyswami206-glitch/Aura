@@ -1,3 +1,4 @@
+npm install idb @google/genai
 import { openDB, type IDBPDatabase } from 'idb';
 
 export interface MemoryEntry {
