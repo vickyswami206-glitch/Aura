@@ -1,0 +1,5 @@
+{
+  "name": "Aura: Personal AI Voice Assistant",
+  "description": "A high-performance, local-first AI voice assistant featuring real-time speech-to-text, natural voice synthesis, and advanced tool execution including image and video generation.",
+  "requestFramePermissions": ["microphone"]
+}
