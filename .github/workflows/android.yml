@@ -16,14 +16,15 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 16
 
-      - name: Clean install dependencies
-        run: |
-            rm -rf node_modules package-lock.json
-            npm install
-      - name: Rebuild native deps
-        run: npm rebuild
+      - run: |
+          rm -rf node_modules package-lock.json
+          npm install --legacy-peer-deps
+
+      - run: npm uninstall @tailwindcss/oxide || true
+
+      - run: npm run build
 
       # ✅ IMPORTANT: install BOTH
       - name: Install Capacitor
