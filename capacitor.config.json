@@ -1,0 +1,6 @@
+{
+  "appId": "com.vickyswami.aura",
+  "appName": "Aura",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
