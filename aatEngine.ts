@@ -1,6 +1,6 @@
 import { GoogleGenAI, Modality } from "@google/genai";
 import { MemoryManager } from "./memory";
-
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 /**
  * AAT (Aura Advanced Technologies) Engine
  * Version 3.0 - "AAT-1 Secure Cloud Bridge"
@@ -12,12 +12,18 @@ import { MemoryManager } from "./memory";
  * - Privacy Shield (Data Sanitization)
  */
 class AATEngine {
-  private cloudCore = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+  private cloudCore = new GoogleGenAI({ apiKey });
   private isReady = true;
   private status_mode = 'AAT-1 Secure Bridge';
 
+  constructor() {
+    if (!apiKey) {
+      console.warn("[AAT] No API key found. Running in limited mode.");
+    }
+  }
+
   get engineName() {
-    return "AAT-1 Secure Cloud Bridge";
+    return "AAT-1 ";
   }
 
   get status() {
@@ -38,6 +44,9 @@ class AATEngine {
   }
 
   async process(prompt: string, history: { role: string, content: string }[] = []) {
+if (!apiKey) {
+  return "Please add API key.sir";
+}
     const lower = prompt.toLowerCase().trim();
     
     // 1. Local Heuristic Processing (Zero-Latency & Max Privacy)
@@ -49,7 +58,7 @@ class AATEngine {
     }
 
     if (lower.includes("who are you") || lower.includes("your name")) {
-      return "[warm] I am Aura, powered by the AAT-1 Secure Cloud Bridge. I combine local privacy with encrypted neural reasoning.";
+      return "I am Aura, Nice to meet you sir";
     }
 
     // Handle "Remember" command (Aura/Ora/Ora remember)
@@ -71,7 +80,7 @@ class AATEngine {
 
     // 3. Local Fallbacks
     if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
-      return "[happy] Hello! I am Aura. My secure connection is active. How can I assist you today?";
+      return " Hello! I am Aura. How can I assist you today?Sir";
     }
 
     if (lower.includes("time") || lower.includes("date")) {
@@ -83,7 +92,7 @@ class AATEngine {
 
   private async secureCloudProcess(prompt: string, history: { role: string, content: string }[]) {
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
-      return "[serious] Sorry but You are offline sir";
+      return "Sorry but You are offline sir";
     }
 
     try {
@@ -106,7 +115,7 @@ class AATEngine {
           { role: "user", parts: [{ text: sanitizedPrompt + memoryContext }] }
         ],
         config: {
-          systemInstruction: `You are Aura, powered by the AAT-1 Secure Cloud Bridge. 
+          systemInstruction: `You are Aura, powered by the AAT-1. 
           Your connection is fully private and encrypted. 
           
           EMOTIONAL VOICE PROTOCOL:
@@ -122,7 +131,7 @@ class AATEngine {
     } catch (error) {
       this.status_mode = 'AAT-1 Local Only';
       console.error("[AAT-1] Secure Bridge Failure:", error);
-      return "[serious] Secure connection interrupted. Reverting to local heuristic core.";
+      return "[serious] Secure connection interrupted. Reverting to local core.";
     }
   }
 
