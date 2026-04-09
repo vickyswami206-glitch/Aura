@@ -21,11 +21,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Capacitor Android
-        run: npm install @capacitor/android
+      # ✅ IMPORTANT: install BOTH
+      - name: Install Capacitor
+        run: |
+          npm install @capacitor/core
+          npm install @capacitor/cli
+          npm install @capacitor/android
 
       - name: Build web app
         run: npm run build
+
+      # ✅ INIT (force fix)
+      - name: Ensure Capacitor config
+        run: npx cap init Aura com.vickyswami.aura --web-dir=dist || true
 
       - name: Add Android platform
         run: npx cap add android
