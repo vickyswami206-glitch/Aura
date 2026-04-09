@@ -17,7 +17,7 @@ export default function App() {
       rate: 1.0,
       pitch: 1.0,
     });
-  };
+  }
 
   import { extractDateTime } from "./utils";
 
