@@ -1,45 +1,35 @@
-name: CI Android Build
-on: [push]
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Install pnpm via the pnpm action
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      # Setup Node (with pnpm cache)
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          node-version: 18
 
-      # Install dependencies
-      - name: Install deps with pnpm
-        run: pnpm install
-        
-      # Build web (Tailwind + Vite)
-      - name: Build web assets
-        run: pnpm run build
+      - name: Install dependencies
+        run: npm install
 
-      # Capacitor Android steps
-      - name: Add Android platform
-        run: npx cap add android
+      - name: Build web
+        run: npm run build
+
       - name: Sync Capacitor
         run: npx cap sync android
+
       - name: Build APK
         run: |
           cd android
+          chmod +x gradlew
           ./gradlew assembleDebug
 
       - name: Upload APK
