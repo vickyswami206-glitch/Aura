@@ -2,7 +2,7 @@ import { useState } from "react";
 import VoiceAssistant from "./VoiceAssistant";
 import { aatEngine } from "./aatEngine";
 import { TextToSpeech } from "@capacitor-community/text-to-speech";
-
+import { extractDateTime } from "./utils";
 export default function App() {
   const [responses, setResponses] = useState<string[]>([]);
   const [appointments, setAppointments] = useState<string[]>([]);
@@ -17,9 +17,9 @@ export default function App() {
       rate: 1.0,
       pitch: 1.0,
     });
-  }
+  };
 
-  import { extractDateTime } from "./utils";
+
 
 const processCommand = async (text: string) => {
   const lower = text.toLowerCase();
@@ -28,12 +28,11 @@ const processCommand = async (text: string) => {
   if (lower.includes("appointment") || lower.includes("meeting")) {
     const date = extractDateTime(text);
 
-    const appointment = `📅 Appointment on ${date.toLocaleString()}`;
+    const appointment = `📅 Appointment on ${date ? date.toLocaleString() : "unknown date"}`;
 
     setAppointments((prev) => [...prev, appointment]);
 
-    const reply = `[happy] Your appointment is booked for ${date.toLocaleString()}`;
-
+    const reply = `[happy] Your appointment is booked for ${date ? date.toLocaleString() : "unknown date"}`;
     setResponses((prev) => [...prev, reply]);
 
     await speak(reply);
@@ -49,12 +48,12 @@ const processCommand = async (text: string) => {
 };
 
     // 🧠 AI RESPONSE
-    const result = await aatEngine.process(text);
+    const result2 = await aatEngine.process(text);
 
-    setResponses((prev) => [...prev, result]);
+    setResponses((prev) => [...prev, result2]);
 
     // 🔊 SPEAK RESPONSE
-    await speak(result);
+    await speak(result2);
   };
 
   return (
