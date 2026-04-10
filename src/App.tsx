@@ -1,8 +1,8 @@
 import { useState } from "react";
 import VoiceAssistant from "./VoiceAssistant";
-import { aatEngine } from "./aatEngine";
+import { aatEngine } from "./lib/aatEngine";
 import { TextToSpeech } from "@capacitor-community/text-to-speech";
-import { extractDateTime } from "./utils";
+import { extractDateTime } from "./lib/utils";
 export default function App() {
   const [responses, setResponses] = useState<string[]>([]);
   const [appointments, setAppointments] = useState<string[]>([]);
