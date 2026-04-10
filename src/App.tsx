@@ -20,7 +20,6 @@ export default function App() {
   };
 
 
-
 const processCommand = async (text: string) => {
   const lower = text.toLowerCase();
 
@@ -37,24 +36,23 @@ const processCommand = async (text: string) => {
 
     await speak(reply);
     return;
-  }
+    }
 
   // 🧠 AI fallback
-  const result = await aatEngine.process(text);
+    const result = await aatEngine.process(text);
 
-  setResponses((prev) => [...prev, result]);
+    setResponses((prev) => [...prev, result]);
 
-  await speak(result);
-};
+    await speak(result);
 
     // 🧠 AI RESPONSE
-    const result2 = await aatEngine.process(text);
+     const result2 = await aatEngine.process(text);
 
-    setResponses((prev) => [...prev, result2]);
+     setResponses((prev) => [...prev, result2]);
 
     // 🔊 SPEAK RESPONSE
-    await speak(result2);
-  };
+     await speak(result2);
+    };
 
   return (
     <div style={{ padding: 20 }}>
