@@ -1,3 +1,4 @@
+
 export function extractDateTime(text: string) {
   const lower = text.toLowerCase();
 
@@ -27,4 +28,7 @@ export function extractDateTime(text: string) {
   }
 
   return date;
+}
+export function cn(...classes: any[]) {
+  return classes.filter(Boolean).join(" ");
 }
