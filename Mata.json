@@ -1,0 +1,3 @@
+npm install
+npm install @capacitor/core @capacitor/cli
+npm install @capacitor-community/text-to-speech
