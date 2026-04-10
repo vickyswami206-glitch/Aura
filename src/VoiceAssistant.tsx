@@ -21,10 +21,10 @@ import {
   Send,
   Plus
 } from 'lucide-react';
-import { cn } from '../lib/utils';
-import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
-import { aatEngine } from '../lib/aatEngine';
-import { MemoryManager } from '../lib/memory';
+import { cn } from './lib/utils';
+import { useSpeechRecognition } from './hooks/useSpeechRecognition';
+import { aatEngine } from './lib/aatEngine';
+import { MemoryManager } from './lib/memory';
 
 interface Message {
   role: 'user' | 'model';
