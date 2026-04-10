@@ -25,6 +25,8 @@ jobs:
    
       - name: Build Web App
         run: npm run build
+      - name: Copy web assets
+        run: npx cap copy android
         
       # 🔥 ADD ANDROID PLATFORM
       - run: npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest --legacy-peer-deps
