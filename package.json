@@ -14,7 +14,8 @@
   "@capacitor-community/speech-recognition": "^6.0.0",
   "@google/genai": "^0.7.0",
   "idb": "^7.1.1",
-  "framer-motion": "^11.0.0"
+  "framer-motion": "^11.0.0",
+  "lucide-react": "^0.400.0"
 },
   "devDependencies": {
     "@capacitor/cli": "^6.0.0",
