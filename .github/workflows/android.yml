@@ -19,7 +19,7 @@ jobs:
       - run: npm run build
 
       # 🔥 ADD ANDROID PLATFORM
-      - run: npm install @capacitor/core @capacitor/cli @capacitor/android
+      - run: npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest --legacy-peer-deps
       - run: npx cap add android
       - run: npx cap sync android
 
