@@ -13,7 +13,7 @@
   "@capacitor-community/text-to-speech": "^5.1.0",
   "@capacitor-community/speech-recognition": "^6.0.0",
   "@google/genai": "^0.7.0",
-  "idb": "^7.1.1"
+  "idb": "^7.1.1",
   "framer-motion": "^11.0.0"
 },
   "devDependencies": {
